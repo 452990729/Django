@@ -1,0 +1,47 @@
+{% extends "base.html" %}
+{% load staticfiles %}
+
+
+
+{% block content %}
+        <div class="col-md-4 offset-md-4">
+            <form class='form-login' action="/barplot/" method="post">
+                {% csrf_token %}
+                <h2 class="text-center">welcom login</h2>
+                <div class="form-group">
+                    {{ plot_form.x.label_tag }}
+                    {{ plot_form.x}}
+                </div>
+                <div class="form-group">
+                    {{ plot_form.y.label_tag }}
+                    {{ plot_form.y}}
+                </div>
+                <div class="form-group">
+                    {{ plot_form.hue.label_tag }}
+                    {{ plot_form.hue}}
+                </div>
+                <div class="form-group">
+                    {{ plot_form.orient.label_tag }}
+                    {{ plot_form.orient}}
+                </div>
+                <div class="form-group">
+                    {{ plot_form.ci.label_tag }}
+                    {{ plot_form.ci}}
+                </div>
+                <div class="form-group">
+                    {{ plot_form.title.label_tag }}
+                    {{ plot_form.title}}
+                </div>
+                <div class="form-group">
+                    {{ plot_form.ylim.label_tag }}
+                    {{ plot_form.ylim}}
+                </div>
+                <div class="form-group">
+                    {{ plot_form.figsize.label_tag }}
+                    {{ plot_form.figsize}}
+                </div>
+                <button type="reset" class="btn btn-default pull-left">reset</button>
+                <button type="submit" class="btn btn-primary pull-right">submit</button>
+            </form>
+        </div>
+{% endblock %}

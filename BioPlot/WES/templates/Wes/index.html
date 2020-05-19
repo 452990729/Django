@@ -1,0 +1,21 @@
+{% extends "base.html" %}
+{% load staticfiles %}
+
+
+
+{% block content %}
+    <div class="row">
+        <div class="col-md-4 offset-md-2">
+            <form class='form-login' action="/WES/" method="post" enctype="multipart/form-data">
+                {% if message %}
+                    <div class="alert alert-warning">{{ message }}</div>
+                {% endif %}
+                {% csrf_token %}
+                <h2 class="text-center">welcom wes</h2>
+                {{ wes_form.as_p }}
+                <button type="reset" class="btn btn-default pull-left">reset</button>
+                <button type="submit" class="btn btn-primary pull-right">submit</button>
+            </form>
+        </div>
+    </div>
+{% endblock %}

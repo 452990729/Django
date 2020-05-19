@@ -12,18 +12,18 @@ class Migration(migrations.Migration):
 
     operations = [
         migrations.CreateModel(
-            name='User',
+            name='WES',
             fields=[
                 ('id', models.AutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
-                ('name', models.CharField(max_length=128, unique=True)),
-                ('password', models.CharField(max_length=256)),
-                ('email', models.EmailField(max_length=254, unique=True)),
-                ('sex', models.CharField(choices=[('male', '男'), ('female', '女')], default='male', max_length=32)),
+                ('project', models.CharField(max_length=128, unique=True)),
+                ('info', models.CharField(max_length=256)),
+                ('platform', models.CharField(choices=[('SGE', 'SGE'), ('local', 'local')], default='SGE', max_length=32)),
+                ('cores', models.CharField(max_length=256)),
                 ('c_time', models.DateTimeField(auto_now_add=True)),
+                ('outpath', models.CharField(max_length=256)),
+                ('status', models.CharField(max_length=256)),
             ],
             options={
-                'verbose_name': 'user',
-                'verbose_name_plural': 'user',
                 'ordering': ['c_time'],
             },
         ),

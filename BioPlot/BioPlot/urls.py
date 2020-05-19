@@ -26,6 +26,8 @@ urlpatterns = [
     path('logout/', views.logout),
     path('contact/', views.contact),
     path('captcha', include('captcha.urls')),
-    path('', include(('Barplot.urls', 'Barplot'), namespace='Barplot')),
-    path('', include(('Heatmap.urls', 'Heatmap'), namespace='Heatmap')),
+    path('Barplot/', include(('Barplot.urls', 'Barplot'), namespace='Barplot')),
+    path('Heatmap/', include(('Heatmap.urls', 'Heatmap'), namespace='Heatmap')),
+    path('WES/', include(('WES.urls', 'WES'), namespace='WES')),
+    path('', views.index),
 ]

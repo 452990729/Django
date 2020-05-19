@@ -12,7 +12,7 @@ def hash_code(s, hk='lxf'):
     return h.hexdigest()
 
 def login(request):
-    if request.session.get('is_login',None):
+    if request.session.get('is_login') == True:
         return redirect('/index')
     if request.method == "POST":
         login_form = UserForm(request.POST)
@@ -40,7 +40,7 @@ def index(request):
     return render(request,'login/index.html')
 
 def register(request):
-    if request.session.get('is_login', None):
+    if request.session.get('is_login') == True:
         return redirect("/index/")
     if request.method == "POST":
         register_form = RegisterForm(request.POST)
