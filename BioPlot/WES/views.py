@@ -14,9 +14,7 @@ def index(request):
     if request.method == "POST":
         wes_form = WESForm(request.POST, request.FILES)
         message = "please check in the content!"
-        print(1)
         if wes_form.is_valid():
-            print(2)
             config = wes_form.cleaned_data['config']
             config_file = request.FILES.getlist('config_file')
             fastq_file = request.FILES.getlist('fastq_file')
@@ -24,14 +22,15 @@ def index(request):
             info = wes_form.cleaned_data['info']
             platform = wes_form.cleaned_data['platform']
             cores = wes_form.cleaned_data['cores']
-            print('WES_'+project)
             same_name_project = models.WES.objects.filter(project = 'WES_'+project)
-            print(same_name_project)
             if same_name_project:
                 message = 'project already exists, please re-select project'
                 return render(request, 'Wes/index.html', locals())
             ProjectPath = HandleWES(config, config_file, fastq_file, project, info, platform, cores, )
             new_project = models.WES.objects.create()
+            new_project.user = request.user.username
+            new_project.category  = 'Pipeline'
+            new_project.name = 'WES'
             new_project.project = 'WES_'+project
             new_project.info = info
             new_project.platform = platform

@@ -2,6 +2,9 @@ from django.db import models
 
 
 class WES(models.Model):
+    user = models.CharField(max_length=256)
+    category = models.CharField(max_length=256)
+    name = models.CharField(max_length=256)
     project = models.CharField(max_length=128,unique=True)
     info = models.CharField(max_length=256)
     platform = models.CharField(max_length=32,choices=(('SGE','SGE'), ('local', 'local')),default='SGE')

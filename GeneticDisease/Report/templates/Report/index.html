@@ -1,0 +1,90 @@
+{% extends "base.html" %}
+{% load staticfiles %}
+
+{% block css %}
+  <link rel="stylesheet" href="{% static 'plugins/DataTables/DataTables-1.10.21/css/jquery.dataTables.min.css' %}">
+  <link rel="stylesheet" href="{% static 'plugins/DataTables/Buttons-1.6.2/css/buttons.dataTables.min.css' %}">
+{% endblock %}
+{% block content %}
+    <div class="row">
+        <div class="col-md-8 offset-md-2">
+            <table id="PrevData" class="display" style="width: 100%">
+                <thead>
+                <tr>
+                    <th class="text-center">项目编号</th>
+                    <th class="text-center">家系编号</th>
+                    <th class="text-center">样本编号</th>
+                    <th class="text-center">姓名</th>
+                    <th class="text-center">初步诊断</th>
+                    <th class="text-center">WES结果</th>
+                    <th class="text-center">Sanger结果</th>
+                    <th class="text-center">报告</th>
+                </tr>
+                </thead>
+            </table>
+        </div>
+    </div>
+{% endblock %}
+{% block js %}
+  <script src="{% static 'plugins/DataTables/DataTables-1.10.21/js/jquery.dataTables.min.js' %}"></script>
+  <script src="{% static 'plugins/DataTables/Buttons-1.6.2/js/dataTables.buttons.min.js' %}"></script>
+  <script src="{% static 'plugins/DataTables/Buttons-1.6.2/js/buttons.flash.min.js' %}"></script>
+  <script src="{% static 'plugins/DataTables/Buttons-1.6.2/js/buttons.html5.min.js' %}"></script>
+  <script src="{% static 'plugins/DataTables/Buttons-1.6.2/js/buttons.print.min.js' %}"></script>
+  <script src="{% static 'plugins/DataTables/JSZip-2.5.0/jszip.min.js' %}"></script>
+  <script src="{% static 'plugins/DataTables/pdfmake-0.1.36/pdfmake.min.js' %}"></script>
+  <script src="{% static 'plugins/DataTables/pdfmake-0.1.36/vfs_fonts.js' %}"></script>
+  <script type="text/javascript">
+          $('#PrevData').DataTable({
+              "pagingType": "simple_numbers",
+              searching: true,
+              destroy : true,
+              stateSave: true,
+              data: {{ patiantable | safe }},
+              'columns': [
+              {'data': '项目编号',
+                  'render': function (data){
+                      return '<a href="/Report/'+data+'/">'+data+'</a>'}},
+              {'data': '家系编号'},
+              {'data': '样本编号',
+                'render': function (data){
+                    return '<a href="/patiantinfo/'+data+'/">'+data+'</a>'} },
+              {'data': '姓名'},
+              {'data': '初步诊断'},
+              {'data': 'WES结果',
+                  'render': function (data){
+                      if(data.length>0){
+                          var s = [];
+                          for (let i = 0; i < data.length; i++){
+                              s.push('<a href="/WES/'+data+'/">'+data+'</a>&nbsp;');
+                          }
+                          return s.join("");
+                      }else{
+                          return '未进行'
+                      }}},
+              {'data': 'Sanger结果',
+                  'render': function (data){
+                      console.log(data)
+                      if(data.length>0){
+                            var s = [];
+                          for (let i = 0; i < data.length; i++){
+                              s.push('<a href="/Sanger/'+data+'/">'+data+'</a>&nbsp;');
+                          }
+                          return s.join("");
+                      }else{
+                          return '未进行'
+                      }}},
+              {'data': '报告',
+                  'render': function (data){
+                      if(data) {
+                          return '<a href="/Report/'+data+'">'+'下载'+'</a>'}else{
+                          return data}}},
+              ],
+              'language': {
+                  'url': '//cdn.datatables.net/plug-ins/9dcbecd42ad/i18n/Chinese.json'
+              },
+              dom: 'Bfrtip',
+              button: ['copy', 'csv', 'excel', 'pdf', 'print'],
+          })
+  </script>
+{% endblock %}

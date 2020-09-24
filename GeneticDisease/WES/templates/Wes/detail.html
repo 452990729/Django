@@ -1,0 +1,63 @@
+{% extends "base.html" %}
+{% load staticfiles %}
+
+
+
+{% block content %}
+    <div class="row">
+        <div class="col-md-8 offset-md-2">
+            {% if message %}
+                <div class="alert alert-warning">{{ message }}</div>
+            {% endif %}
+            {% csrf_token %}
+            <h2 class="text-center">Project information</h2>
+            <button type="button" class="btn btn-danger" data-toggle="modal" data-target="#myModal">删除</button>
+            <table class="table table-hover row">
+                <thead class="thead-light w-100">
+                    <tr class="row">
+                        <th class="col-4">类别</th>
+                        <th class="col-8">内容</th>
+                    </tr>
+                </thead>
+                <tbody class="w-100">
+                {% for field in Project_form %}
+                <tr class="row">
+                    <th class="col-4">{{ field.label }}</th>
+                    <th class="col-8">{{ field.value }}</th>
+                </tr>
+                {% endfor %}
+                <tr class="row">
+                    <th class="col-4">质控结果</th>
+                    <th class="col-8"><a href=WES/{{ QC.qc_result }}>{{ QC.label }}</a></th>
+                </tr>
+                <tr class="row">
+                    <th class="col-4">全部结果</th>
+                    <th class="col-8"><a href=WES/{{ all_als.all_result }}>{{ all_als.label }}</a></th>
+                </tr>
+                <tr class="row">
+                    <th class="col-4">最终结果</th>
+                    <th class="col-8"><a href=WES/{{ final_als.final_result }}>{{ final_als.label }}</a></th>
+                </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+    <div class="modal fade" id="myModal">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h4 class="modal-title">警告</h4>
+                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+                </div>
+                <div class="modal-body">
+                    真的要删除{{ project }}的数据吗？？？
+                </div>
+                <div class="modal-footer">
+                    <a href="/WES/{{ project }}/del/" class="btn btn-danger" role="button">确定</a>
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">关闭</button>
+                </div>
+            </div>
+        </div>
+    </div>
+                        
+{% endblock %}

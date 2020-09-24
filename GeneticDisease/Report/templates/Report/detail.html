@@ -1,0 +1,166 @@
+{% extends "base.html" %}
+{% load staticfiles %}
+
+
+
+{% block content %}
+    <div class="row">
+        <div class="col-md-8 offset-md-2">
+            {% if message %}
+                <div class="alert alert-warning">{{ message }}</div>
+            {% endif %}
+            {% csrf_token %}
+            <h2 class="text-center">Patiant Report</h2>
+            <br></br>
+            <h3 class="text-left">病人信息</h3>
+            <br></br>
+            <table class="table table-hover row">
+                <thead class="thead-light w-100">
+                    <tr class="row">
+                        <th class="col-4">类别</th>
+                        <th class="col-8">内容</th>
+                    </tr>
+                </thead>
+                <tbody class="w-100">
+                {% for field in patiant_form %}
+                <tr class="row">
+                    <th class="col-4">{{ field.label }}</th>
+                    <th class="col-8">{{ field.value }}</th>
+                </tr>
+                {% endfor %}
+                <tr class="row">
+                    <th class="col-4">照片</th>
+                    <th class="col-8">
+                    {% for ph in list_PatiantPhoto %}
+                    <a href=patiantinfo/{{ ph.path }}>{{ ph.label }}</a>&nbsp;
+                    {% endfor %}
+                    </th>
+                </tr>
+                <tr class="row">
+                    <th class="col-4">病理</th>
+                    <th class="col-8">
+                    {% for ph in list_PatiantPathology %}
+                    <a href=patiantinfo/{{ ph.path }}>{{ ph.label }}</a>&nbsp;
+                    {% endfor %}
+                    </th>
+                </tr>
+                <tr class="row">
+                    <th class="col-4">送检单</th>
+                    <th class="col-8">
+                    {% for ph in list_PatiantInformation %}
+                    <a href=patiantinfo/{{ ph.path }}>{{ ph.label }}</a>&nbsp;
+                    {% endfor %}
+                    </th>
+                </tr>
+                </tbody>
+            </table>
+            <br></br><br></br>
+            <h3 class="text-left">WES分析数据</h3>
+            <br></br>
+            <table class="table table-hover row">
+                <thead class="thead-light w-100">
+                    <tr class="row">
+                        <th class="col-2">项目编号</th>
+                        <th class="col-2">任务状态</th>
+                        <th class="col-2">项目信息</th>
+                        <th class="col-2">质控结果</th>
+                        <th class="col-2">全部结果</th>
+                        <th class="col-2">最终结果</th>
+                    </tr>
+                </thead>
+                <tbody class="w-100">
+                    {% for obj in list_wes %}
+                    <tr class="row">
+                        <th class="col-2">{{ obj.项目编号.value }}</th>
+                        <th class="col-2">{{ obj.任务状态.value }}</th>
+                        <th class="col-2">{{ obj.项目信息.value }}</th>
+                        {% if obj.任务状态.value == '运行完成' %}
+                        <th class="col-2"><a href=WES/{{ obj.质控结果.value }}>下载</a></th>
+                        <th class="col-2"><a href=WES/{{ obj.全部结果.value }}>下载</a></th>
+                        <th class="col-2"><a href=WES/{{ obj.最终结果.value }}>下载</a></th>
+                        {% else %}
+                        <th class="col-2"></th>
+                        <th class="col-2"></th>
+                        <th class="col-2"></th>
+                        {% endif %}
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+            <br></br><br></br>
+            <h3 class="text-left">Sanger分析数据</h3>
+            <br></br>
+            <table class="table table-hover row">
+                <thead class="thead-light w-100">
+                    <tr class="row">
+                        <th class="col-3">项目编号</th>
+                        <th class="col-3">任务状态</th>
+                        <th class="col-3">目标基因</th>
+                        <th class="col-3">最终结果</th>
+                    </tr>
+                </thead>
+                <tbody class="w-100">
+                    {% for obj in list_sanger %}
+                    <tr class="row">
+                        <th class="col-3">{{ obj.项目编号.value }}</th>
+                        <th class="col-3">{{ obj.任务状态.value }}</th>
+                        <th class="col-3">{{ obj.目标基因.value }}</th>
+                        {% if obj.任务状态.value == '运行完成' %}
+                        <th class="col-3"><a href=Sanger/{{ obj.最终结果.value }}>下载</a></th>
+                        {% else %}
+                        <th class="col-3"></th>
+                        {% endif %}
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+            <br></br><br></br>
+            <h3 class="text-left">报告</h3>
+
+            <table class="table table-hover row">
+                <thead class="thead-light w-100">
+                    <tr class="row">
+                        <th class="col-4">类别</th>
+                        <th class="col-8">内容</th>
+                    </tr>
+                </thead>
+                <tbody class="w-100">
+                    <tr class="row">
+                        <th class="col-4">项目编号</th>
+                        <th class="col-8">{{ Report_Patiant.项目编号 }}</th>
+                    </tr>
+                    <tr class="row">
+                        <th class="col-4">报告</th>
+                        {% if Report_Patiant.报告 %}
+                        <th class="col-8"><a href=Sanger/{{ Report_Patiant.报告.url }}>下载</a></th>
+                        {% else %}
+                        <th class="col-8"></th>
+                        {% endif %}
+                    </tr>
+                </tbody>
+            </table>
+            <br></br>
+            <a href="#" class="btn btn-info" role="button">编写报告</a>
+            <button type="button" class="btn btn-danger" data-toggle="modal" data-target="#myModal">上传报告</button>
+        </div>
+    </div>
+    <div class="modal fade" id="myModal">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h4 class="modal-title">上传</h4>
+                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+                </div>
+                <div class="modal-body">
+                    <form class='form-login' action="/Report/{{ project }}/" method="post" enctype="multipart/form-data">
+                        {% csrf_token %}
+                        {{ report_form.as_p}}
+                        <button type="reset" class="btn btn-default pull-left">重置</button>
+                        <button type="submit" class="btn btn-primary pull-right">上传</button>
+                    </form>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">关闭</button>
+                </div>
+                        
+{% endblock %}

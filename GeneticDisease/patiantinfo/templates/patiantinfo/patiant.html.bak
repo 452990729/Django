@@ -1,0 +1,22 @@
+{% extends "base.html" %}
+{% load staticfiles %}
+
+
+
+{% block content %}
+    <div class="row">
+        <div class="col-md-6 offset-md-3">
+            <table id="PrevData" class="display" style="width: 100%">
+                {% if message %}
+                    <div class="alert alert-warning">{{ message }}</div>
+                {% endif %}
+                {% csrf_token %}
+                <h2 class="text-center">Patiant information</h2>
+                <a href="/patiantinfo/{{ patiant }}/mod/" class="btn btn-info" role="button">修改</a>
+                &nbsp;&nbsp;&nbsp;&nbsp;
+                <a href="/patiantinfo/{{ patiant }}/del/" class="btn btn-danger" role="button">删除</a>
+                {{ patiant_form.as_table }}
+            </table>
+        </div>
+    </div>
+{% endblock %}
