@@ -18,8 +18,8 @@ class SangerForm(ModelForm):
     项目编号 = forms.CharField(label="*项目编号", max_length=20, widget=forms.TextInput(attrs={'class': 'form-control'}), help_text='项目编号', initial='NGSWES001', required=True)
     All_wes_sample = PatiantInfo.objects.all()
     list_sample_choice = []
-#    for sample in All_wes_sample:
-#        tup = (sample.样本编号, sample.样本编号)
-#        list_sample_choice.append(tup)
+    for sample in All_wes_sample:
+        tup = (sample.样本编号, sample.样本编号)
+        list_sample_choice.append(tup)
     样本编号 = forms.ChoiceField(label='*样本编号', choices=tuple(list_sample_choice), required=True)
     目标基因 = forms.CharField(label="目标基因", max_length=200, widget=forms.TextInput(attrs={'class': 'form-control'}))

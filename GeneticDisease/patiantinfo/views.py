@@ -88,7 +88,7 @@ def CreatePatiant(request):
             if same_name_project:
                 message = '样本编号已经存在，请检查！'
                 return render(request, 'patiantinfo/new.html', locals())
-            new_project = models.PatiantInfo.objects.create()
+            new_project = models.PatiantInfo()
             new_project.家系编号 = 家系编号
             new_project.样本编号 = 样本编号
             new_project.检测类型 = 检测类型
@@ -136,7 +136,7 @@ def PatiantDetail(request, patiant):
     list_PatiantInformation = []
     list_PatiantPathology = []
     for ml in models.PatiantPhoto.objects.filter(Patiant=patiant_model):
-        lb = re.split('\/', ml.照片)[-1]
+        lb = re.split('\/', str(ml.照片))[-1]
         list_PatiantPhoto.append({'label': lb,
                                   'path': ml.照片})
     for ml in models.PatiantInformation.objects.filter(Patiant=patiant_model):
@@ -154,8 +154,8 @@ def PatiantDetail(request, patiant):
     patiant_form = forms.infoForm(instance=patiant_model)
     return render(request, 'patiantinfo/patiant.html', locals())
 
-def GetImage(request, patiant, cls, year, month, date, pic):
-    url_image = 'images/'+cls+'/'+year+'/'+month+'/'+date+'/'+pic
+def GetImage(request, patiant, cls, date, pic):
+    url_image = 'images/'+cls+'/'+date+'/'+pic
     files = open(url_image, 'rb')
     response = FileResponse(files)
     response['Content-Type'] = 'application/octet-stream'

@@ -59,7 +59,7 @@ def register(request):
                 if same_email_user: 
                     message = "The email address has been registered, please use another email address"
                     return render(request, 'login/register.html', locals())
-                new_user = models.LoginUser.objects.create()
+                new_user = models.LoginUser()
                 new_user.username = username
                 new_user.password = hash_code(password1)
                 new_user.email = email

@@ -19,9 +19,9 @@ class WESForm(ModelForm):
     项目编号 = forms.CharField(label="*项目编号", max_length=20, widget=forms.TextInput(attrs={'class': 'form-control'}), help_text='项目编号', initial='NGSWES001', required=True)
     All_wes_sample = PatiantInfo.objects.exclude(检测类型='Sanger测序')
     list_sample_choice = []
-#    for sample in All_wes_sample:
-#        tup = (sample.样本编号, sample.样本编号)
-#        list_sample_choice.append(tup)
+    for sample in All_wes_sample:
+        tup = (sample.样本编号, sample.样本编号)
+        list_sample_choice.append(tup)
     样本编号 = forms.ChoiceField(label='*样本编号', choices=tuple(list_sample_choice), required=True)
     项目信息 = forms.CharField(label="项目信息", max_length=200, widget=forms.TextInput(attrs={'class': 'form-control'}), initial='human')
     运行平台 = forms.ChoiceField(label='*运行平台', choices=(('SGE','SGE'), ('local','local')), initial='SGE', required=True)

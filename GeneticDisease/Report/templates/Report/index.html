@@ -56,7 +56,7 @@
                       if(data.length>0){
                           var s = [];
                           for (let i = 0; i < data.length; i++){
-                              s.push('<a href="/WES/'+data+'/">'+data+'</a>&nbsp;');
+                              s.push('<a href="/WES/'+data[i]+'/">'+data[i]+'</a>&nbsp;');
                           }
                           return s.join("");
                       }else{
@@ -68,7 +68,7 @@
                       if(data.length>0){
                             var s = [];
                           for (let i = 0; i < data.length; i++){
-                              s.push('<a href="/Sanger/'+data+'/">'+data+'</a>&nbsp;');
+                              s.push('<a href="/Sanger/'+data[i]+'/">'+data[i]+'</a>&nbsp;');
                           }
                           return s.join("");
                       }else{

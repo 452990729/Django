@@ -83,7 +83,7 @@ WSGI_APPLICATION = 'GeneticDisease.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
+        'NAME': os.path.join('/mnt/dfc_data1/project/lixuefei/Patiant/', 'db.sqlite3'),
     }
 }
 
@@ -128,7 +128,10 @@ STATIC_URL = '/static/'
 # 项目静态文件的配置
 STATICFILES_DIRS = [
         os.path.join(BASE_DIR,"statics"),
-                       ]
+]
+
+#Media
+MEDIA_ROOT='/mnt/dfc_data1/project/lixuefei/Patiant/'
 # Host
 ALLOWED_HOSTS = ['172.16.11.218', ]
 APPEND_SLASH=False

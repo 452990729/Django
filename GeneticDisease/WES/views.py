@@ -57,20 +57,20 @@ def CreateNew(request):
             config_file = request.FILES.getlist('config_file')
             项目编号 = wes_form.cleaned_data['项目编号']
             样本编号 = wes_form.cleaned_data['样本编号']
-            样本信息 = wes_form.cleaned_data['样本信息']
+            项目信息 = wes_form.cleaned_data['项目信息']
             运行平台 = wes_form.cleaned_data['运行平台']
             运行核心数 = wes_form.cleaned_data['运行核心数']
             same_name_project = models.PatiantWESTable.objects.filter(项目编号=项目编号)
             if same_name_project:
                 message = '项目名称已经存在，请选择其他'
                 return render(request, 'Wes/new.html', locals())
-            ProjectPath = HandleWES(config, config_file, 项目编号, 样本信息, 运行平台, 运行核心数, )
+            ProjectPath = HandleWES(config, config_file, 项目编号, 项目信息, 运行平台, 运行核心数, )
             RawPatiant = PatiantInfo.objects.get(样本编号=样本编号)
             new_project = models.PatiantWESTable.objects.create(Patiant=RawPatiant)
             new_project.执行人员 = request.user.username
             new_project.项目编号 = 项目编号
             new_project.样本编号 = 样本编号
-            new_project.样本信息 = 样本信息
+            new_project.项目信息 = 项目信息
             new_project.运行平台 = 运行平台
             new_project.运行核心数 = 运行核心数
             new_project.项目路径 = ProjectPath
@@ -117,6 +117,7 @@ def UploadFile(list_in, outpath):
         destination.close()
 
 def ReadConfig(config, outpath):
+    print(config)
     out = open(os.path.join(outpath, 'Run/config.lst'), 'w')
     if os.path.isfile(config):
         with open(config, 'r') as f:

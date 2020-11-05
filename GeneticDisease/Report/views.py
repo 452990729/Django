@@ -77,7 +77,7 @@ def ProjectDetail(request, project):
     list_PatiantInformation = []
     list_PatiantPathology = []
     for ml in PatiantPhoto.objects.filter(Patiant=Patiant):
-        lb = re.split('\/', ml.照片)[-1]
+        lb = re.split('\/', str(ml.照片))[-1]
         list_PatiantPhoto.append({'label': lb,
                                   'path': ml.照片})
     for ml in PatiantInformation.objects.filter(Patiant=Patiant):
@@ -123,8 +123,10 @@ def DelPatiant(request, project):
 def DownloadFile(request, file_path):
     if file_path.startswith('/images'):
         fl_path = settings.BASE_DIR+file_path
-    if file_path.startswith('Reports'):
+    if file_path.startswith('/Reports'):
         fl_path = settings.BASE_DIR+file_path
+    else:
+        fl_path = file_path
     files = open(fl_path, 'rb')
     label = re.split('/', file_path)[-1]
     response = FileResponse(files)

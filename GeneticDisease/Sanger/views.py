@@ -138,7 +138,7 @@ def DelPatiant(request, project):
     return Index(request)
 
 def UpdateStatus(project):
-     FinalFile = project.项目路径+'/All.html'
+     FinalFile = project.项目路径+'/ALL.html'
      if os.path.isfile(FinalFile):
          project.任务状态 = '运行完成'
          project.最终结果 = FinalFile
