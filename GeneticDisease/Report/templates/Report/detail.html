@@ -10,7 +10,7 @@
                 <div class="alert alert-warning">{{ message }}</div>
             {% endif %}
             {% csrf_token %}
-            <h2 class="text-center">Patiant Report</h2>
+            <h2 class="text-center">项目报告</h2>
             <br></br>
             <h3 class="text-left">病人信息</h3>
             <br></br>
@@ -32,7 +32,7 @@
                     <th class="col-4">照片</th>
                     <th class="col-8">
                     {% for ph in list_PatiantPhoto %}
-                    <a href=patiantinfo/{{ ph.path }}>{{ ph.label }}</a>&nbsp;
+                    <a href=patiantinfo/images/{{ ph.path }}>{{ ph.label }}</a>&nbsp;
                     {% endfor %}
                     </th>
                 </tr>
@@ -40,7 +40,7 @@
                     <th class="col-4">病理</th>
                     <th class="col-8">
                     {% for ph in list_PatiantPathology %}
-                    <a href=patiantinfo/{{ ph.path }}>{{ ph.label }}</a>&nbsp;
+                    <a href=patiantinfo/images/{{ ph.path }}>{{ ph.label }}</a>&nbsp;
                     {% endfor %}
                     </th>
                 </tr>
@@ -48,14 +48,14 @@
                     <th class="col-4">送检单</th>
                     <th class="col-8">
                     {% for ph in list_PatiantInformation %}
-                    <a href=patiantinfo/{{ ph.path }}>{{ ph.label }}</a>&nbsp;
+                    <a href=patiantinfo/images/{{ ph.path }}>{{ ph.label }}</a>&nbsp;
                     {% endfor %}
                     </th>
                 </tr>
                 </tbody>
             </table>
             <br></br><br></br>
-            <h3 class="text-left">WES分析数据</h3>
+            <h3 class="text-left">外显子分析数据</h3>
             <br></br>
             <table class="table table-hover row">
                 <thead class="thead-light w-100">

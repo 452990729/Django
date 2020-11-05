@@ -30,32 +30,20 @@ scratch. This page gets rid of all links and provides the needed markup only.
         <a class="nav-link" data-widget="pushmenu" href="#" role="button"><i class="fas fa-bars"></i></a>
       </li>
       <li class="nav-item d-none d-sm-inline-block">
-        <a href="/index/" class="nav-link">Home</a>
+        <a href="/index/" class="nav-link">主页</a>
       </li>
       <li class="nav-item d-none d-sm-inline-block">
-        <a href="/contact/" class="nav-link">Contact</a>
+        <a href="/contact/" class="nav-link">联系</a>
       </li>
     </ul>
-
-    <!-- SEARCH FORM -->
-    <form class="form-inline ml-3">
-      <div class="input-group input-group-sm">
-        <input class="form-control form-control-navbar" type="search" placeholder="Search" aria-label="Search">
-        <div class="input-group-append">
-          <button class="btn btn-navbar" type="submit">
-            <i class="fas fa-search"></i>
-          </button>
-        </div>
-      </div>
-    </form>
 
     <ul class="navbar-nav ml-auto">
         {% if request.session.is_login %}
         <li class="nav-item d-none d-sm-inline-block"><a href="/home/" class="nav-link">{{ request.session.user_name }}</a></li>
-            <li class="nav-item d-none d-sm-inline-block"><a href="/logout/" class="nav-link">logout</a></li>
+            <li class="nav-item d-none d-sm-inline-block"><a href="/logout/" class="nav-link">登出</a></li>
         {% else %}
-            <li class="nav-item d-none d-sm-inline-block"><a href="/login/" class="nav-link">login</a></li>
-            <li class="nav-item d-none d-sm-inline-block"><a href="/register/" class="nav-link">register</a></li>
+            <li class="nav-item d-none d-sm-inline-block"><a href="/login/" class="nav-link">登录</a></li>
+            <li class="nav-item d-none d-sm-inline-block"><a href="/register/" class="nav-link">注册</a></li>
         {% endif %}
     </ul>
   </nav>
@@ -67,7 +55,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
     <a href="/index/" class="brand-link">
         <img src="{% static "dist/img/AdminLTELogo.png" %}" alt="AdminLTE Logo" class="brand-image img-circle elevation-3"
            style="opacity: .8">
-      <span class="brand-text font-weight-light">GeneticDisease</span>
+      <span class="brand-text font-weight-light">遗传诊断</span>
     </a>
 
     <!-- Sidebar -->
@@ -86,7 +74,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
             <img src="{% static "dist/img/user2-160x160.jpg" %}" class="img-circle elevation-2" alt="User Image">
         </div>
         <div class="info">
-          <a href="/login/" class="d-block">login</a>
+          <a href="/login/" class="d-block">登录</a>
         </div>
         {% endif %}
       </div>
@@ -94,56 +82,33 @@ scratch. This page gets rid of all links and provides the needed markup only.
       <!-- Sidebar Menu -->
       <nav class="mt-2">
         <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
-          <!-- Add icons to the links using the .nav-icon class
-               with font-awesome or any other icon font library -->
-          <li class="nav-item has-treeview menu-open">
-              <a href="#" class="nav-link {% if isactive != 'Project' %}active{% endif %}">
-              <i class="nav-icon fas fa-tachometer-alt"></i>
-              <p>
-                Process Pages
-                <i class="right fas fa-angle-left"></i>
-              </p>
-            </a>
-            <ul class="nav nav-treeview">
-              <li class="nav-item">
-                  <a href="{% url 'patiantinfo:index' %}" class="nav-link {% if isactive == 'patiantinfo' %}active{% endif %}">
-                  <i class="far fa-circle nav-icon"></i>
-                  <p>Information Page</p>
+            <li class="nav-item">
+                <a href="{% url 'patiantinfo:index' %}" class="nav-link {% if isactive == 'patiantinfo' %}active{% endif %}">
+                    <i class="far fa-circle nav-icon"></i>
+                    <p>病人信息</p>
                 </a>
-              </li>
-              <li class="nav-item">
-                  <a href="{% url 'Sanger:index' %}" class="nav-link {% if isactive == 'Sanger' %}active{% endif %}">
-                  <i class="far fa-circle nav-icon"></i>
-                  <p>Sanger Page</p>
+            </li>
+            <li class="nav-item">
+                <a href="{% url 'Sanger:index' %}" class="nav-link {% if isactive == 'Sanger' %}active{% endif %}">
+                    <i class="far fa-circle nav-icon"></i>
+                    <p>Sanger测序</p>
                 </a>
-              </li>
-              <li class="nav-item">
-                  <a href="{% url 'WES:index' %}" class="nav-link {% if isactive == 'WES' %}active{% endif %}">
-                  <i class="far fa-circle nav-icon"></i>
-                  <p>WES Page</p>
+            </li>
+            <li class="nav-item">   
+                <a href="{% url 'WES:index' %}" class="nav-link {% if isactive == 'WES' %}active{% endif %}">
+                    <i class="far fa-circle nav-icon"></i>
+                    <p>全外测序</p>
                 </a>
-              </li>
-              <li class="nav-item">
-                  <a href="{% url 'Report:index' %}" class="nav-link {% if isactive == 'Report' %}active{% endif %}">
-                  <i class="far fa-circle nav-icon"></i>
-                  <p>Report Page</p>
+            </li>
+            <li class="nav-item">
+                <a href="{% url 'Report:index' %}" class="nav-link {% if isactive == 'Report' %}active{% endif %}">
+                    <i class="far fa-circle nav-icon"></i>
+                    <p>报告</p>
                 </a>
-              </li>
-            </ul>
-          </li>
-          {% if request.session.is_login %}
-          <li class="nav-item">
-              <a href="/Project/" class="nav-link {% if isactive == 'Project' %}active{% endif %}">
-                  <i class="nav-icon fas fa-th"></i>
-                  <p>Your Project</p>
-              </a>
-          </li>
-          {% endif %}
+            </li>
         </ul>
       </nav>
-      <!-- /.sidebar-menu -->
     </div>
-    <!-- /.sidebar -->
   </aside>
 
   <!-- Content Wrapper. Contains page content -->
@@ -184,7 +149,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
       Anything you want
     </div>
     <!-- Default to the left -->
-    <strong>Copyright &copy; 2014-2020 <a href="https://github.com/452990729/">github</a>.</strong> All rights reserved.
+    <strong>Copyright &copy; 2019-2020 <a href="https://github.com/452990729/">github</a>.</strong> All rights reserved.
   </footer>
 </div>
 <!-- ./wrapper -->

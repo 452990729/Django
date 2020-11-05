@@ -121,10 +121,8 @@ def DelPatiant(request, project):
     return Index(request)
 
 def DownloadFile(request, file_path):
-    if file_path.startswith('/images'):
-        fl_path = settings.BASE_DIR+file_path
-    if file_path.startswith('/Reports'):
-        fl_path = settings.BASE_DIR+file_path
+    if file_path.startswith('Reports'):
+        fl_path = settings.MEDIA_ROOT+file_path
     else:
         fl_path = file_path
     files = open(fl_path, 'rb')

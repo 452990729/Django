@@ -50,7 +50,6 @@ def CreatePatiant(request):
         infoForm = forms.FullInfoForm(request.POST, request.FILES)
         message = "please check in the content!"
         if infoForm.is_valid():
-            print(1)
             家系编号 = infoForm.cleaned_data['家系编号']
             样本编号 = infoForm.cleaned_data['样本编号']
             检测类型 = infoForm.cleaned_data['检测类型']
@@ -123,7 +122,7 @@ def CreatePatiant(request):
                 models.PatiantInformation.objects.create(Patiant=new_project,送检单=f)
 #            new_project.save()
 #            return HttpResponse('新增成功')
-            return render(request, 'patiantinfo/works.html', locals())
+            return render(request, 'patiantinfo/index.html', locals())
         return render(request, 'patiantinfo/new.html', locals())
     return render(request, 'patiantinfo/new.html', locals())
 
@@ -153,14 +152,6 @@ def PatiantDetail(request, patiant):
     form = forms.infoForm()
     patiant_form = forms.infoForm(instance=patiant_model)
     return render(request, 'patiantinfo/patiant.html', locals())
-
-def GetImage(request, patiant, cls, date, pic):
-    url_image = 'images/'+cls+'/'+date+'/'+pic
-    files = open(url_image, 'rb')
-    response = FileResponse(files)
-    response['Content-Type'] = 'application/octet-stream'
-    response['Content-Disposition'] = 'attachment;filename="{}"'.format(pic)
-    return response
 
 def ModPatiant(request, patiant):
     isactive = 'patiantinfo'

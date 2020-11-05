@@ -54,7 +54,7 @@ def CreateNew(request):
         message = "please check in the content!"
         if wes_form.is_valid():
             config = wes_form.cleaned_data['config']
-            config_file = request.FILES.getlist('config_file')
+#            config_file = request.FILES.getlist('config_file')
             项目编号 = wes_form.cleaned_data['项目编号']
             样本编号 = wes_form.cleaned_data['样本编号']
             项目信息 = wes_form.cleaned_data['项目信息']
@@ -64,7 +64,7 @@ def CreateNew(request):
             if same_name_project:
                 message = '项目名称已经存在，请选择其他'
                 return render(request, 'Wes/new.html', locals())
-            ProjectPath = HandleWES(config, config_file, 项目编号, 项目信息, 运行平台, 运行核心数, )
+            ProjectPath = HandleWES(config, 项目编号, 项目信息, 运行平台, 运行核心数, )
             RawPatiant = PatiantInfo.objects.get(样本编号=样本编号)
             new_project = models.PatiantWESTable.objects.create(Patiant=RawPatiant)
             new_project.执行人员 = request.user.username
@@ -81,7 +81,7 @@ def CreateNew(request):
     wes_form = WESForm()
     return render(request, 'Wes/new.html', locals())
 
-def HandleWES(config, config_file, project, info, platform, cores, ):
+def HandleWES(config, project, info, platform, cores, ):
     OUTPATH = '/mnt/dfc_data1/project/lixuefei/WES'
     Pipeline = '/mnt/dfc_data1/home/lixuefei/Pipeline/Exon/Bin/ExonPipeline.py'
     ProjectPath = os.path.join(OUTPATH, project)
@@ -93,15 +93,7 @@ def HandleWES(config, config_file, project, info, platform, cores, ):
     RunPath = os.path.join(ProjectPath, 'Run')
     if not os.path.exists(RunPath):
         os.mkdir(RunPath)
-    print(config_file)
-    if len(config_file) > 0:
-        UploadFile(config_file, RawDataPath)
-        ReadConfig(glob(RawDataPath+'/*')[0], ProjectPath)
-    else:
-        ReadConfig(config, ProjectPath)
-#    print(fastq_file)
-#    if len(fastq_file) > 0:
-#        UploadFile(fastq_file, RawDataPath)
+    ReadConfig(config, ProjectPath)
     shell = open(os.path.join(RunPath, 'run.sh'), 'w')
     shell.write('{} -c {} -o {} -p {} -j {} -r'.format(Pipeline, os.path.join(RunPath, 'config.lst'),\
                                                       RunPath, platform, cores))
@@ -117,7 +109,6 @@ def UploadFile(list_in, outpath):
         destination.close()
 
 def ReadConfig(config, outpath):
-    print(config)
     out = open(os.path.join(outpath, 'Run/config.lst'), 'w')
     if os.path.isfile(config):
         with open(config, 'r') as f:

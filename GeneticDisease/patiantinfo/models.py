@@ -35,12 +35,12 @@ class PatiantInfo(models.Model):
 
 class PatiantPhoto(models.Model):
     Patiant = models.ForeignKey(PatiantInfo,on_delete=models.CASCADE)
-    照片 = models.FileField(upload_to='images/照片/%Y-%m-%d/', null=True, blank=True, verbose_name='照片')
+    照片 = models.FileField(upload_to='照片/%Y-%m-%d/', null=True, blank=True, verbose_name='照片')
 
 class PatiantPathology(models.Model):
     Patiant = models.ForeignKey(PatiantInfo,on_delete=models.CASCADE)
-    病理  = models.FileField(upload_to='images/病理/%Y-%m-%d/', null=True, blank=True, verbose_name='病理')
+    病理  = models.FileField(upload_to='病理/%Y-%m-%d/', null=True, blank=True, verbose_name='病理')
 
 class PatiantInformation(models.Model):
     Patiant = models.ForeignKey(PatiantInfo,on_delete=models.CASCADE)
-    送检单 = models.FileField(upload_to='images/送检单/%Y-%m-%d/', null=True, blank=True, verbose_name='送检单')
+    送检单 = models.FileField(upload_to='送检单/%Y-%m-%d/', null=True, blank=True, verbose_name='送检单')

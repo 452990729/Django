@@ -10,7 +10,7 @@
                 <div class="alert alert-warning">{{ message }}</div>
             {% endif %}
             {% csrf_token %}
-            <h2 class="text-center">Patiant information</h2>
+            <h2 class="text-center">病人信息</h2>
             <a href="/patiantinfo/{{ patiant }}/mod/" class="btn btn-info" role="button">修改</a>
             &nbsp;&nbsp;&nbsp;&nbsp;
             <button type="button" class="btn btn-danger" data-toggle="modal" data-target="#myModal">删除</button>
@@ -32,7 +32,7 @@
                     <th class="col-4">照片</th>
                     <th class="col-8">
                     {% for ph in list_PatiantPhoto %}
-                    <a href={{ ph.path }}>{{ ph.label }}</a>&nbsp;
+                    <a href=images/{{ ph.path }}>{{ ph.label }}</a>&nbsp;
                     {% endfor %}
                     </th>
                 </tr>
@@ -40,7 +40,7 @@
                     <th class="col-4">病理</th>
                     <th class="col-8">
                     {% for ph in list_PatiantPathology %}
-                    <a href={{ ph.path }}>{{ ph.label }}</a>&nbsp;
+                    <a href=images/{{ ph.path }}>{{ ph.label }}</a>&nbsp;
                     {% endfor %}
                     </th>
                 </tr>
@@ -48,7 +48,7 @@
                     <th class="col-4">送检单</th>
                     <th class="col-8">
                     {% for ph in list_PatiantInformation %}
-                    <a href={{ ph.path }}>{{ ph.label }}</a>&nbsp;
+                    <a href=images/{{ ph.path }}>{{ ph.label }}</a>&nbsp;
                     {% endfor %}
                     </th>
                 </tr>
