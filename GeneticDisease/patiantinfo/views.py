@@ -122,7 +122,7 @@ def CreatePatiant(request):
                 models.PatiantInformation.objects.create(Patiant=new_project,送检单=f)
 #            new_project.save()
 #            return HttpResponse('新增成功')
-            return render(request, 'patiantinfo/index.html', locals())
+            return index(request)
         return render(request, 'patiantinfo/new.html', locals())
     return render(request, 'patiantinfo/new.html', locals())
 
